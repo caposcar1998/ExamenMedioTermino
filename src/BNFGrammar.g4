@@ -1,4 +1,4 @@
-grammar Gramatica;
+grammar BNFGrammar;
 
 re : union | simpleRE ;
 union : simpleRE '|' re;

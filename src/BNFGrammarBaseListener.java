@@ -1,244 +1,243 @@
-// Generated from C:/Users/oscar/Desktop/Compiladores/ExamenMedioTermino/src/Gramatica\Gramatica.g4 by ANTLR 4.9.1
-package Gramatica;
+// Generated from /Users/manuelortiz/Mac Documents/Tec/8vo ZoomSemestre/Diseño de Compiladores/2do Parcial/Mid-Term/src/BNFGrammar.g4 by ANTLR 4.9.1
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- * This class provides an empty implementation of {@link GramaticaListener},
+ * This class provides an empty implementation of {@link BNFGrammarListener},
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
-public class GramaticaBaseListener implements GramaticaListener {
+public class BNFGrammarBaseListener implements BNFGrammarListener {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRe(GramaticaParser.ReContext ctx) { }
+	@Override public void enterRe(BNFGrammarParser.ReContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRe(GramaticaParser.ReContext ctx) { }
+	@Override public void exitRe(BNFGrammarParser.ReContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUnion(GramaticaParser.UnionContext ctx) { }
+	@Override public void enterUnion(BNFGrammarParser.UnionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitUnion(GramaticaParser.UnionContext ctx) { }
+	@Override public void exitUnion(BNFGrammarParser.UnionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSimpleRE(GramaticaParser.SimpleREContext ctx) { }
+	@Override public void enterSimpleRE(BNFGrammarParser.SimpleREContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSimpleRE(GramaticaParser.SimpleREContext ctx) { }
+	@Override public void exitSimpleRE(BNFGrammarParser.SimpleREContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConcatenation(GramaticaParser.ConcatenationContext ctx) { }
+	@Override public void enterConcatenation(BNFGrammarParser.ConcatenationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConcatenation(GramaticaParser.ConcatenationContext ctx) { }
+	@Override public void exitConcatenation(BNFGrammarParser.ConcatenationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBasicRE(GramaticaParser.BasicREContext ctx) { }
+	@Override public void enterBasicRE(BNFGrammarParser.BasicREContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBasicRE(GramaticaParser.BasicREContext ctx) { }
+	@Override public void exitBasicRE(BNFGrammarParser.BasicREContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStar(GramaticaParser.StarContext ctx) { }
+	@Override public void enterStar(BNFGrammarParser.StarContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStar(GramaticaParser.StarContext ctx) { }
+	@Override public void exitStar(BNFGrammarParser.StarContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPlus(GramaticaParser.PlusContext ctx) { }
+	@Override public void enterPlus(BNFGrammarParser.PlusContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPlus(GramaticaParser.PlusContext ctx) { }
+	@Override public void exitPlus(BNFGrammarParser.PlusContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterElementaryRE(GramaticaParser.ElementaryREContext ctx) { }
+	@Override public void enterElementaryRE(BNFGrammarParser.ElementaryREContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitElementaryRE(GramaticaParser.ElementaryREContext ctx) { }
+	@Override public void exitElementaryRE(BNFGrammarParser.ElementaryREContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterGroup(GramaticaParser.GroupContext ctx) { }
+	@Override public void enterGroup(BNFGrammarParser.GroupContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitGroup(GramaticaParser.GroupContext ctx) { }
+	@Override public void exitGroup(BNFGrammarParser.GroupContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAny(GramaticaParser.AnyContext ctx) { }
+	@Override public void enterAny(BNFGrammarParser.AnyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAny(GramaticaParser.AnyContext ctx) { }
+	@Override public void exitAny(BNFGrammarParser.AnyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEos(GramaticaParser.EosContext ctx) { }
+	@Override public void enterEos(BNFGrammarParser.EosContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEos(GramaticaParser.EosContext ctx) { }
+	@Override public void exitEos(BNFGrammarParser.EosContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterChara(GramaticaParser.CharaContext ctx) { }
+	@Override public void enterChara(BNFGrammarParser.CharaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitChara(GramaticaParser.CharaContext ctx) { }
+	@Override public void exitChara(BNFGrammarParser.CharaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSet(GramaticaParser.SetContext ctx) { }
+	@Override public void enterSet(BNFGrammarParser.SetContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSet(GramaticaParser.SetContext ctx) { }
+	@Override public void exitSet(BNFGrammarParser.SetContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPositiveset(GramaticaParser.PositivesetContext ctx) { }
+	@Override public void enterPositiveset(BNFGrammarParser.PositivesetContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPositiveset(GramaticaParser.PositivesetContext ctx) { }
+	@Override public void exitPositiveset(BNFGrammarParser.PositivesetContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSetitems(GramaticaParser.SetitemsContext ctx) { }
+	@Override public void enterSetitems(BNFGrammarParser.SetitemsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSetitems(GramaticaParser.SetitemsContext ctx) { }
+	@Override public void exitSetitems(BNFGrammarParser.SetitemsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSetitem(GramaticaParser.SetitemContext ctx) { }
+	@Override public void enterSetitem(BNFGrammarParser.SetitemContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSetitem(GramaticaParser.SetitemContext ctx) { }
+	@Override public void exitSetitem(BNFGrammarParser.SetitemContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRange(GramaticaParser.RangeContext ctx) { }
+	@Override public void enterRange(BNFGrammarParser.RangeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRange(GramaticaParser.RangeContext ctx) { }
+	@Override public void exitRange(BNFGrammarParser.RangeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMetacharacter(GramaticaParser.MetacharacterContext ctx) { }
+	@Override public void enterMetacharacter(BNFGrammarParser.MetacharacterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMetacharacter(GramaticaParser.MetacharacterContext ctx) { }
+	@Override public void exitMetacharacter(BNFGrammarParser.MetacharacterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterChars(GramaticaParser.CharsContext ctx) { }
+	@Override public void enterChars(BNFGrammarParser.CharsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitChars(GramaticaParser.CharsContext ctx) { }
+	@Override public void exitChars(BNFGrammarParser.CharsContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

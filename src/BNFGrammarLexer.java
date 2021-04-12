@@ -1,5 +1,4 @@
-// Generated from C:/Users/oscar/Desktop/Compiladores/ExamenMedioTermino/src/Gramatica\Gramatica.g4 by ANTLR 4.9.1
-package Gramatica;
+// Generated from /Users/manuelortiz/Mac Documents/Tec/8vo ZoomSemestre/Diseño de Compiladores/2do Parcial/Mid-Term/src/BNFGrammar.g4 by ANTLR 4.9.1
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -10,7 +9,7 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class GramaticaLexer extends Lexer {
+public class BNFGrammarLexer extends Lexer {
 	static { RuntimeMetaData.checkVersion("4.9.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -85,13 +84,13 @@ public class GramaticaLexer extends Lexer {
 	}
 
 
-	public GramaticaLexer(CharStream input) {
+	public BNFGrammarLexer(CharStream input) {
 		super(input);
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
 	@Override
-	public String getGrammarFileName() { return "Gramatica.g4"; }
+	public String getGrammarFileName() { return "BNFGrammar.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }

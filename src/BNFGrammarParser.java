@@ -1,4 +1,4 @@
-// Generated from c:\Users\oscar\Desktop\Compiladores\ExamenMedioTermino\src\Gramatica\Gramatica.g4 by ANTLR 4.8
+// Generated from /Users/manuelortiz/Mac Documents/Tec/8vo ZoomSemestre/Diseño de Compiladores/2do Parcial/Mid-Term/src/BNFGrammar.g4 by ANTLR 4.9.1
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -9,8 +9,8 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class GramaticaParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.8", RuntimeMetaData.VERSION); }
+public class BNFGrammarParser extends Parser {
+	static { RuntimeMetaData.checkVersion("4.9.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -82,7 +82,7 @@ public class GramaticaParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "Gramatica.g4"; }
+	public String getGrammarFileName() { return "BNFGrammar.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -93,7 +93,7 @@ public class GramaticaParser extends Parser {
 	@Override
 	public ATN getATN() { return _ATN; }
 
-	public GramaticaParser(TokenStream input) {
+	public BNFGrammarParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
@@ -109,6 +109,19 @@ public class GramaticaParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_re; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).enterRe(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).exitRe(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BNFGrammarVisitor ) return ((BNFGrammarVisitor<? extends T>)visitor).visitRe(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ReContext re() throws RecognitionException {
@@ -156,6 +169,19 @@ public class GramaticaParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_union; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).enterUnion(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).exitUnion(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BNFGrammarVisitor ) return ((BNFGrammarVisitor<? extends T>)visitor).visitUnion(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final UnionContext union() throws RecognitionException {
@@ -194,6 +220,19 @@ public class GramaticaParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_simpleRE; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).enterSimpleRE(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).exitSimpleRE(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BNFGrammarVisitor ) return ((BNFGrammarVisitor<? extends T>)visitor).visitSimpleRE(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final SimpleREContext simpleRE() throws RecognitionException {
@@ -241,6 +280,19 @@ public class GramaticaParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_concatenation; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).enterConcatenation(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).exitConcatenation(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BNFGrammarVisitor ) return ((BNFGrammarVisitor<? extends T>)visitor).visitConcatenation(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ConcatenationContext concatenation() throws RecognitionException {
@@ -280,6 +332,19 @@ public class GramaticaParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_basicRE; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).enterBasicRE(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).exitBasicRE(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BNFGrammarVisitor ) return ((BNFGrammarVisitor<? extends T>)visitor).visitBasicRE(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final BasicREContext basicRE() throws RecognitionException {
@@ -331,6 +396,19 @@ public class GramaticaParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_star; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).enterStar(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).exitStar(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BNFGrammarVisitor ) return ((BNFGrammarVisitor<? extends T>)visitor).visitStar(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final StarContext star() throws RecognitionException {
@@ -364,6 +442,19 @@ public class GramaticaParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_plus; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).enterPlus(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).exitPlus(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BNFGrammarVisitor ) return ((BNFGrammarVisitor<? extends T>)visitor).visitPlus(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final PlusContext plus() throws RecognitionException {
@@ -409,6 +500,19 @@ public class GramaticaParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_elementaryRE; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).enterElementaryRE(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).exitElementaryRE(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BNFGrammarVisitor ) return ((BNFGrammarVisitor<? extends T>)visitor).visitElementaryRE(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ElementaryREContext elementaryRE() throws RecognitionException {
@@ -478,6 +582,19 @@ public class GramaticaParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_group; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).enterGroup(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).exitGroup(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BNFGrammarVisitor ) return ((BNFGrammarVisitor<? extends T>)visitor).visitGroup(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final GroupContext group() throws RecognitionException {
@@ -510,6 +627,19 @@ public class GramaticaParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_any; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).enterAny(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).exitAny(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BNFGrammarVisitor ) return ((BNFGrammarVisitor<? extends T>)visitor).visitAny(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final AnyContext any() throws RecognitionException {
@@ -538,6 +668,19 @@ public class GramaticaParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_eos; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).enterEos(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).exitEos(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BNFGrammarVisitor ) return ((BNFGrammarVisitor<? extends T>)visitor).visitEos(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final EosContext eos() throws RecognitionException {
@@ -572,6 +715,19 @@ public class GramaticaParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_chara; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).enterChara(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).exitChara(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BNFGrammarVisitor ) return ((BNFGrammarVisitor<? extends T>)visitor).visitChara(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final CharaContext chara() throws RecognitionException {
@@ -621,6 +777,19 @@ public class GramaticaParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_set; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).enterSet(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).exitSet(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BNFGrammarVisitor ) return ((BNFGrammarVisitor<? extends T>)visitor).visitSet(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final SetContext set() throws RecognitionException {
@@ -652,6 +821,19 @@ public class GramaticaParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_positiveset; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).enterPositiveset(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).exitPositiveset(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BNFGrammarVisitor ) return ((BNFGrammarVisitor<? extends T>)visitor).visitPositiveset(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final PositivesetContext positiveset() throws RecognitionException {
@@ -690,6 +872,19 @@ public class GramaticaParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_setitems; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).enterSetitems(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).exitSetitems(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BNFGrammarVisitor ) return ((BNFGrammarVisitor<? extends T>)visitor).visitSetitems(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final SetitemsContext setitems() throws RecognitionException {
@@ -739,6 +934,19 @@ public class GramaticaParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_setitem; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).enterSetitem(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).exitSetitem(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BNFGrammarVisitor ) return ((BNFGrammarVisitor<? extends T>)visitor).visitSetitem(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final SetitemContext setitem() throws RecognitionException {
@@ -786,6 +994,19 @@ public class GramaticaParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_range; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).enterRange(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).exitRange(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BNFGrammarVisitor ) return ((BNFGrammarVisitor<? extends T>)visitor).visitRange(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final RangeContext range() throws RecognitionException {
@@ -818,6 +1039,19 @@ public class GramaticaParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_metacharacter; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).enterMetacharacter(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).exitMetacharacter(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BNFGrammarVisitor ) return ((BNFGrammarVisitor<? extends T>)visitor).visitMetacharacter(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final MetacharacterContext metacharacter() throws RecognitionException {
@@ -851,12 +1085,25 @@ public class GramaticaParser extends Parser {
 	}
 
 	public static class CharsContext extends ParserRuleContext {
-		public TerminalNode LETTER() { return getToken(GramaticaParser.LETTER, 0); }
-		public TerminalNode DIGIT() { return getToken(GramaticaParser.DIGIT, 0); }
+		public TerminalNode LETTER() { return getToken(BNFGrammarParser.LETTER, 0); }
+		public TerminalNode DIGIT() { return getToken(BNFGrammarParser.DIGIT, 0); }
 		public CharsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_chars; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).enterChars(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof BNFGrammarListener ) ((BNFGrammarListener)listener).exitChars(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof BNFGrammarVisitor ) return ((BNFGrammarVisitor<? extends T>)visitor).visitChars(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final CharsContext chars() throws RecognitionException {
