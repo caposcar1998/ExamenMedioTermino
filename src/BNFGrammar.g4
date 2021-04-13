@@ -1,5 +1,7 @@
 grammar BNFGrammar;
 
+
+
 re : union | simpleRE ;
 union : simpleRE '|' re;
 simpleRE : basicRE | concatenation ;
