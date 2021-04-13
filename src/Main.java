@@ -7,7 +7,7 @@ public class Main {
     public static void main(String [] args){
         try {
 
-            CharStream input = CharStreams.fromString("a");
+            CharStream input = CharStreams.fromString("a|b");
             BNFGrammarLexer lexer = new BNFGrammarLexer(input);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             BNFGrammarParser parser = new BNFGrammarParser(tokens);
@@ -16,18 +16,21 @@ public class Main {
             System.out.println(tree.toStringTree(parser));
 
             MiVisitador eval = new MiVisitador();
-            /*
+
             Node n;
             n = eval.visit(tree);
-            n.gen();
-            */
+            //n.gen();
+
 
             NFA nfa = new NFA();
-            nfa.get(0,'ñ');
-            nfa.get(1,'a');
+
+
+            nfa.get(0,'b');
+            nfa.get(1,'b');
             nfa.get(2,'b');
+            nfa.getStates();
             nfa.getAlphabet();
-            nfa.toString();
+            System.out.println(nfa.toString());
         }catch(Exception e) {
             System.out.println("Error " + e );
         }

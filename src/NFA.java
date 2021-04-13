@@ -7,16 +7,21 @@ public class NFA extends TablaTransicion{
 
     @Override
     public Set<Integer> get(int state, char c) {
-        return null;
+        Set<Integer> hash = new HashSet<>();
+        hash.add(state);
+        return hash;
     }
 
     @Override
     public int getStates() {
-        return 0;
+        return 3;
     }
 
     @Override
     public Set<Character> getAlphabet() {
-        return null;
+        Set<Character> hash = new HashSet<>();
+        hash.add('a');
+        hash.add('b');
+        return hash;
     }
 }
