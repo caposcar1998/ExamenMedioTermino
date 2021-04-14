@@ -4,7 +4,7 @@ import org.antlr.v4.runtime.tree.*;
 public class Main {
     public static void main(String [] args){
         try {
-            CharStream input = CharStreams.fromString("ab");
+            CharStream input = CharStreams.fromString("ab*");
             BNFGrammarLexer lexer = new BNFGrammarLexer(input);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             BNFGrammarParser parser = new BNFGrammarParser(tokens);
@@ -14,10 +14,12 @@ public class Main {
             MiVisitador eval = new MiVisitador();
             Node n = eval.visit(tree);
             //n.gen();
-            RegexToNFA thompson = new RegexToNFA();
+
             MiVisitador.nfaFinal.addToTable(MiVisitador.nfaFinal.getStates()+1, 'ñ');
+            System.out.println(MiVisitador.op.getOperators());
             NodeNFA resultNFA = new NodeNFA();
-            resultNFA = thompson.attendOperators(MiVisitador.op, MiVisitador.initialNode, MiVisitador.finalNode);
+            resultNFA = MiVisitador.thompson.attendOperators(MiVisitador.op, MiVisitador.initialNode, MiVisitador.finalNode);
+            MiVisitador.nfaFinal.setStates(resultNFA.getStates().size());
             for(int i = 0; i<MiVisitador.nfaFinal.getStates(); i++){
                 for (Character c : MiVisitador.nfaFinal.getAlphabet()) {
                     //99 default value porque no sabía como hacerlo en Java
@@ -27,6 +29,8 @@ public class Main {
             for (NodeNFA.Paths p: resultNFA.getPaths()){
                 MiVisitador.nfaFinal.addToTransitionMap(p.getInitialState(),p.getTransitionWith(), p.getNextState());
             }
+
+            resultNFA.display();
             System.out.println(MiVisitador.nfaFinal.toString());
         }catch(Exception e) {
             System.out.println("Error " + e );

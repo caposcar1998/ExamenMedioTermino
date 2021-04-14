@@ -52,6 +52,10 @@ public class NodeNFA {
         states.add(a);
     }
 
+    public void addPath(int initialState, int nextState, Character c){
+        paths.add(new Paths(initialState, nextState, c));
+    }
+
     public void setStateSize(int size){
         for (int i = 0; i < size; i++)
             this.states.add(i);
@@ -59,9 +63,8 @@ public class NodeNFA {
 
     public void display(){
         for (Paths p: paths){
-            System.out.println("("+ p.getInitialState() +", "+ p.getTransitionWith() +
-                    ", "+ p.getNextState() +")");
-
+            System.out.println("("+ p.initialState +", "+ p.transitionWith +
+                    ", "+ p.nextState +")");
         }
     }
 

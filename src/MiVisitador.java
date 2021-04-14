@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 public class MiVisitador extends BNFGrammarBaseVisitor<Node>{
     //NFAfinal guardará todos los resultados finales, es decir, es el NFA ya resuelto
     public static NFA nfaFinal = new NFA();
@@ -7,12 +9,18 @@ public class MiVisitador extends BNFGrammarBaseVisitor<Node>{
     //Por cada elemento que surge es importante tener en cuenta que puede surgir un nueva NFA al cual podemos concatenar
     public static NodeNFA initialNode;
     public static NodeNFA finalNode;
+    public static RegexToNFA thompson = new RegexToNFA();
+    public static Stack<Character> regexVisitor = new Stack<>();
 
     //public static Map<String, Map<String, List<Integer> >> myBoard = new HashMap<String, Map<String, List<Integer> >>();
 
     @Override public Node visitStar(BNFGrammarParser.StarContext ctx) {
-        System.out.println("star");
-        System.out.println(ctx.getText());
+        System.out.println("Star");
+        System.out.println(ctx.getChildCount());
+
+        //Character c = ctx.elementaryRE().getText().charAt(0);
+        //op.addNodeNFA(new NodeNFA(c));
+        op.addNodeNFA(thompson.star(op.getActualNFA().pop()));
         return visit(ctx.elementaryRE());
     }
 
@@ -40,12 +48,14 @@ public class MiVisitador extends BNFGrammarBaseVisitor<Node>{
 
     @Override public Node visitConcatenation(BNFGrammarParser.ConcatenationContext ctx) {
         op.addOperator("Concat");
-
         return visitChildren(ctx);
     }
 
     @Override public Node visitElementaryRE(BNFGrammarParser.ElementaryREContext ctx) {
+
         char character = ctx.getChild(0).getText().charAt(0);
+        //regexVisitor.add(character);
+        System.out.println("Es ElementaryRE, se agregará a operands " + character);
         op.addNodeNFA(new NodeNFA(character));
         nfaFinal.addToTable(MiVisitador.nfaFinal.getStates()+1, character);
         return visitChildren(ctx);

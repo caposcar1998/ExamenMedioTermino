@@ -7,12 +7,14 @@ public class NFA extends TablaTransicion{
     private Set<Character> characters;
     private Map<Integer, Map<Character, List<Integer> >> transitions;
     private List<Integer> listStates;
+    private int s;
 
     public NFA(){
         this.states = new HashSet<>();
         this.characters = new HashSet<>();
         this.transitions = new HashMap<>();
         this.listStates = new ArrayList<>();
+        this.s = 0;
     }
 
     @Override
@@ -24,7 +26,11 @@ public class NFA extends TablaTransicion{
 
     @Override
     public int getStates() {
-        return states.size();
+        return s;
+    }
+
+    public void setStates(int totalStates){
+        s = totalStates;
     }
 
     @Override
@@ -36,6 +42,8 @@ public class NFA extends TablaTransicion{
     public  Map<Integer, Map<Character, List<Integer> >> getTransitions() {
         return transitions;
     }
+
+
 
     @Override
     public List<Integer> getTransitionInRow(int key, Character header){
