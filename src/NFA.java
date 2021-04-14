@@ -1,12 +1,19 @@
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.*;
-
+//Clase que contiene todos los resultados a imprimir. Es el NFA completo
 public class NFA extends TablaTransicion{
-    Set<Integer> states = new HashSet<>();
-    Set<Character> characters = new HashSet<>();
-    Map<Integer, Map<Character, List<Integer> >> transitions = new HashMap<>();
-    List<Integer> listStates = new ArrayList<>();
+    private Set<Integer> states;
+    private Set<Character> characters;
+    private Map<Integer, Map<Character, List<Integer> >> transitions;
+    private List<Integer> listStates;
+
+    public NFA(){
+        this.states = new HashSet<>();
+        this.characters = new HashSet<>();
+        this.transitions = new HashMap<>();
+        this.listStates = new ArrayList<>();
+    }
 
     @Override
     public Set<Integer> addToTable(int state, char c) {

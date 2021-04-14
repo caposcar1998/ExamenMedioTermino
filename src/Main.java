@@ -1,13 +1,11 @@
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
-import java.util.*;
-import java.io.PrintWriter;
-import java.io.*;
+
 public class Main {
     public static void main(String [] args){
         try {
 
-            CharStream input = CharStreams.fromString("ab");
+            CharStream input = CharStreams.fromString("abc");
             BNFGrammarLexer lexer = new BNFGrammarLexer(input);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             BNFGrammarParser parser = new BNFGrammarParser(tokens);
@@ -20,33 +18,16 @@ public class Main {
             Node n;
             n = eval.visit(tree);
             //n.gen();
+            System.out.println(MiVisitador.op.getOperators().toString());
+            //Una vez que hayas acabado de visitar el árbol
+            RegexToNFA thompson = new RegexToNFA();
+            NodeNFA resultNFA = new NodeNFA();
+            resultNFA = thompson.attendOperators(MiVisitador.op, MiVisitador.initialNode, MiVisitador.finalNode);
+            resultNFA.display();
 
 
-            NFA nfa = new NFA();
-            nfa.addToTable(0, 'a');
-            nfa.addToTable(1, 'b');
-            nfa.addToTable(2, 'ñ');
 
-
-
-            //int key, Character header, List<Integer> states
-            nfa.addToTransitionMap(0, 'a', 1);
-            nfa.addToTransitionMap(0, 'b', 99);
-            nfa.addToTransitionMap(0, 'ñ', 99);
-
-            nfa.addToTransitionMap(1, 'a', 99);
-            nfa.addToTransitionMap(1, 'b', 2);
-            nfa.addToTransitionMap(1, 'ñ', 99);
-
-            nfa.addToTransitionMap(2, 'a', 99);
-            nfa.addToTransitionMap(2, 'b', 99);
-            nfa.addToTransitionMap(2, 'ñ', 99);
-
-            //nfa.get(1, 'a');
-            //Map<Integer, String> transitions = new HashMap<String, String>();
-            //transitions.put("")
-
-            System.out.println(nfa.toString());
+            System.out.println(MiVisitador.nfaFinal.toString());
         }catch(Exception e) {
             System.out.println("Error " + e );
         }

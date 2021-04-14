@@ -1,9 +1,14 @@
 public class MiVisitador extends BNFGrammarBaseVisitor<Node>{
+    //NFAfinal guardará todos los resultados finales, es decir, es el NFA ya resuelto
+    public static NFA nfaFinal = new NFA();
+    //De la clase operators, tendremos:
+    // - operators: todas las operaciones a realizar que se irán colocando en una Pila
+    public static StacksNFA op = new StacksNFA();
+    //Por cada elemento que surge es importante tener en cuenta que puede surgir un nueva NFA al cual podemos concatenar
+    public static NodeNFA initialNode;
+    public static NodeNFA finalNode;
 
-    //public static NFA nfa = new NFA();
     //public static Map<String, Map<String, List<Integer> >> myBoard = new HashMap<String, Map<String, List<Integer> >>();
-
-
 
     @Override public Node visitStar(BNFGrammarParser.StarContext ctx) {
         System.out.println("star");
@@ -33,19 +38,21 @@ public class MiVisitador extends BNFGrammarBaseVisitor<Node>{
         return visitChildren(ctx);
     }
 
-
     @Override public Node visitConcatenation(BNFGrammarParser.ConcatenationContext ctx) {
-        System.out.println("concat");
-        System.out.println(ctx.getText());
+        op.addOperator("Concat");
+
         return visitChildren(ctx);
     }
 
     @Override public Node visitElementaryRE(BNFGrammarParser.ElementaryREContext ctx) {
-        System.out.println("simpe re");
-        String a = ctx.getChild(0).getText();
-
+        char character = ctx.getChild(0).getText().charAt(0);
+        op.addNodeNFA(new NodeNFA(character));
+        nfaFinal.addToTable(1, character);
         return visitChildren(ctx);
     }
+
+
+
 
 
 
