@@ -61,6 +61,7 @@ public class NodeNFA {
         for (Paths p: paths){
             System.out.println("("+ p.getInitialState() +", "+ p.getTransitionWith() +
                     ", "+ p.getNextState() +")");
+
         }
     }
 

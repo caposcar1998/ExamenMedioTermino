@@ -47,7 +47,7 @@ public class MiVisitador extends BNFGrammarBaseVisitor<Node>{
     @Override public Node visitElementaryRE(BNFGrammarParser.ElementaryREContext ctx) {
         char character = ctx.getChild(0).getText().charAt(0);
         op.addNodeNFA(new NodeNFA(character));
-        nfaFinal.addToTable(1, character);
+        nfaFinal.addToTable(MiVisitador.nfaFinal.getStates()+1, character);
         return visitChildren(ctx);
     }
 

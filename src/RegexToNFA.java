@@ -27,7 +27,6 @@ public class RegexToNFA {
             //Vamos atendiendo por orden los operators
             if (operatorToAttend.equals("Concat")){
                 finalNode = op.getFirstAndRemoveActualNFA();
-                System.out.println(finalNode.toString());
                 initialNode = op.getFirstAndRemoveActualNFA();
                 NodeNFA nodeToConcat = concat(initialNode, finalNode);
                 op.addNodeNFA(nodeToConcat);
