@@ -11,15 +11,17 @@ public class MiVisitador extends BNFGrammarBaseVisitor<Node>{
     public static NodeNFA finalNode;
     public static RegexToNFA thompson = new RegexToNFA();
     public static Stack<Character> regexVisitor = new Stack<>();
+    boolean flagToStopVisiting = false;
 
     //public static Map<String, Map<String, List<Integer> >> myBoard = new HashMap<String, Map<String, List<Integer> >>();
 
     @Override public Node visitStar(BNFGrammarParser.StarContext ctx) {
-        System.out.println("Star");
-        System.out.println(ctx.getChildCount());
-
-        //Character c = ctx.elementaryRE().getText().charAt(0);
-        //op.addNodeNFA(new NodeNFA(c));
+        regexVisitor.push(ctx.getChild(0).getText().charAt(0));
+        regexVisitor.push(ctx.getChild(1).getText().charAt(0));
+        char c = ctx.getChild(0).getText().charAt(0);
+        op.addNodeNFA(new NodeNFA(c));
+        nfaFinal.addToTable(MiVisitador.nfaFinal.getStates()+1, c);
+        flagToStopVisiting = true;
         op.addNodeNFA(thompson.star(op.getActualNFA().pop()));
         return visit(ctx.elementaryRE());
     }
@@ -53,11 +55,16 @@ public class MiVisitador extends BNFGrammarBaseVisitor<Node>{
 
     @Override public Node visitElementaryRE(BNFGrammarParser.ElementaryREContext ctx) {
 
-        char character = ctx.getChild(0).getText().charAt(0);
-        //regexVisitor.add(character);
-        System.out.println("Es ElementaryRE, se agregará a operands " + character);
-        op.addNodeNFA(new NodeNFA(character));
-        nfaFinal.addToTable(MiVisitador.nfaFinal.getStates()+1, character);
+        char c;
+        if (flagToStopVisiting){
+            flagToStopVisiting = false;
+        }else{
+            regexVisitor.push(ctx.getChild(0).getText().charAt(0));
+            c = ctx.getChild(0).getText().charAt(0);
+            op.addNodeNFA(new NodeNFA(c));
+            nfaFinal.addToTable(MiVisitador.nfaFinal.getStates()+1, c);
+        }
+
         return visitChildren(ctx);
     }
 

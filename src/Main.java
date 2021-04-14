@@ -4,7 +4,7 @@ import org.antlr.v4.runtime.tree.*;
 public class Main {
     public static void main(String [] args){
         try {
-            CharStream input = CharStreams.fromString("ab*");
+            CharStream input = CharStreams.fromString("a*");
             BNFGrammarLexer lexer = new BNFGrammarLexer(input);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             BNFGrammarParser parser = new BNFGrammarParser(tokens);
@@ -14,7 +14,6 @@ public class Main {
             MiVisitador eval = new MiVisitador();
             Node n = eval.visit(tree);
             //n.gen();
-
             MiVisitador.nfaFinal.addToTable(MiVisitador.nfaFinal.getStates()+1, 'ñ');
             System.out.println(MiVisitador.op.getOperators());
             NodeNFA resultNFA = new NodeNFA();
@@ -29,7 +28,7 @@ public class Main {
             for (NodeNFA.Paths p: resultNFA.getPaths()){
                 MiVisitador.nfaFinal.addToTransitionMap(p.getInitialState(),p.getTransitionWith(), p.getNextState());
             }
-
+            System.out.println(MiVisitador.regexVisitor.toString());
             resultNFA.display();
             System.out.println(MiVisitador.nfaFinal.toString());
         }catch(Exception e) {
