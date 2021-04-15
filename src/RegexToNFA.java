@@ -18,13 +18,41 @@ public class RegexToNFA {
             iNode.addPath(initialPath, nextPath, p.getTransitionWith());
         }
 
-        for (Integer state: fNode.getStates()){
-            iNode.setState(state + iNode.getStates().size() + 1);
-        }
+        for (Integer state: fNode.getStates()){  iNode.setState(state + iNode.getStates().size() + 1); }
 
         iNode.setFinalState(iNode.getStates().size(), fNode.getStates().size() - 2);
 
         return iNode;
+    }
+
+
+
+    public NodeNFA union(NodeNFA iNode, NodeNFA fNode){
+        int sizeFromUnion = iNode.getStates().size() + fNode.getStates().size() + 2;
+        NodeNFA unionNFA = new NodeNFA(sizeFromUnion);
+        Character emptyTransition = 'ñ';
+        unionNFA.addPath(0,1,emptyTransition);
+        for(NodeNFA.Paths p: iNode.getPaths()){
+            int initialPath = p.getInitialState() + 1;
+            int nextPath = p.getNextState() + 1;
+            unionNFA.addPath(initialPath, nextPath, p.getTransitionWith());
+        }
+        int nextFinalState;
+        nextFinalState = iNode.getStates().size() + fNode.getStates().size() + 1;
+        unionNFA.addPath(iNode.getStates().size(), nextFinalState, emptyTransition);
+        unionNFA.addPath(0, iNode.getStates().size() + 1, emptyTransition);
+
+        for(NodeNFA.Paths p: fNode.getPaths()){
+            int initialPath = p.getInitialState() + iNode.getStates().size() + 1;
+            int nextPath = p.getNextState() + iNode.getStates().size() + 1;
+            unionNFA.addPath(initialPath, nextPath, p.getTransitionWith());
+        }
+
+        unionNFA.addPath(fNode.getStates().size() + iNode.getStates().size(),
+                iNode.getStates().size() + fNode.getStates().size() + 1, emptyTransition);
+
+        unionNFA.setFinalState(iNode.getStates().size(),fNode.getStates().size() + 1);
+        return unionNFA;
     }
 
     public NodeNFA star(NodeNFA iNode){
@@ -47,13 +75,24 @@ public class RegexToNFA {
         return starNFA;
     }
 
-
-
     public NodeNFA attendOperators(StacksNFA op, NodeNFA initialNode, NodeNFA finalNode){
         while(op.getOperators().size() > 0){
             String operatorToAttend = op.getOperators().pop();
             //Vamos atendiendo por orden los operators
-            if (operatorToAttend.equals("Concat")){
+            //Evaluamos las concatenaciones que se encontró en el regex aún cuando sea una operación distinta a concat
+            if(operatorToAttend.equals("Union")){
+                finalNode = op.getFirstAndRemoveActualNFA();
+                if(!op.getOperators().isEmpty() && op.operatorToFollow().equals("Concat")){
+                    op.addConcatNode(op.getFirstAndRemoveActualNFA());
+                    while(!op.getOperators().empty() && op.operatorToFollow().equals("Concat")){
+                        op.addConcatNode(op.getFirstAndRemoveActualNFA());
+                        op.getOperators().pop();
+                    }
+                    initialNode = concat(op.getFirstAndRemoveConcatNFA(), op.getFirstAndRemoveConcatNFA());
+                    while (op.getConcatNFA().size() > 0){ initialNode =  concat(initialNode, op.getFirstAndRemoveConcatNFA()); }
+                }else{ initialNode = op.getFirstAndRemoveActualNFA(); }
+                op.addNodeNFA(union(initialNode, finalNode));
+            }else if (operatorToAttend.equals("Concat")){
                 finalNode = op.getFirstAndRemoveActualNFA();
                 initialNode = op.getFirstAndRemoveActualNFA();
                 NodeNFA nodeToConcat = concat(initialNode, finalNode);

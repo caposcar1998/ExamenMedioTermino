@@ -1,4 +1,4 @@
-// Generated from /Users/manuelortiz/Mac Documents/Tec/8vo ZoomSemestre/Diseño de Compiladores/2do Parcial/Mid-Term/src/BNFGrammar.g4 by ANTLR 4.9.1
+// Generated from /Users/manuelortiz/Mac Documents/Tec/8vo ZoomSemestre/Diseño de Compiladores/2do Parcial/Examen Medio Termino/ExamenMedioTermino/src/BNFGrammar.g4 by ANTLR 4.9.1
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -51,6 +51,12 @@ public interface BNFGrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPlus(BNFGrammarParser.PlusContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BNFGrammarParser#lambda}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLambda(BNFGrammarParser.LambdaContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BNFGrammarParser#elementaryRE}.
 	 * @param ctx the parse tree

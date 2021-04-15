@@ -19,12 +19,12 @@ public class StacksNFA{
         return concatNFA;
     }
 
-    public Stack<String> getOperatorsToFollow(){
-        return operatorsToFollow;
-    }
-
     public NodeNFA getFirstAndRemoveActualNFA(){
         return actualNFA.pop();
+    }
+
+    public NodeNFA getFirstAndRemoveConcatNFA(){
+        return concatNFA.pop();
     }
 
     public void addOperator(String operation){
@@ -45,6 +45,10 @@ public class StacksNFA{
 
     public void removeFirstOperator(){
         operatorsToFollow.pop();
+    }
+
+    public String operatorToFollow(){
+        return operatorsToFollow.peek();
     }
 
 

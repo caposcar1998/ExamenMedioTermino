@@ -1,4 +1,4 @@
-// Generated from /Users/manuelortiz/Mac Documents/Tec/8vo ZoomSemestre/Diseño de Compiladores/2do Parcial/Mid-Term/src/BNFGrammar.g4 by ANTLR 4.9.1
+// Generated from /Users/manuelortiz/Mac Documents/Tec/8vo ZoomSemestre/Diseño de Compiladores/2do Parcial/Examen Medio Termino/ExamenMedioTermino/src/BNFGrammar.g4 by ANTLR 4.9.1
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -76,6 +76,16 @@ public interface BNFGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPlus(BNFGrammarParser.PlusContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BNFGrammarParser#lambda}.
+	 * @param ctx the parse tree
+	 */
+	void enterLambda(BNFGrammarParser.LambdaContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BNFGrammarParser#lambda}.
+	 * @param ctx the parse tree
+	 */
+	void exitLambda(BNFGrammarParser.LambdaContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link BNFGrammarParser#elementaryRE}.
 	 * @param ctx the parse tree

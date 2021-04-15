@@ -4,7 +4,7 @@ import org.antlr.v4.runtime.tree.*;
 public class Main {
     public static void main(String [] args){
         try {
-            CharStream input = CharStreams.fromString("ab|b");
+            CharStream input = CharStreams.fromString("a|b");
             BNFGrammarLexer lexer = new BNFGrammarLexer(input);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             BNFGrammarParser parser = new BNFGrammarParser(tokens);
@@ -22,7 +22,6 @@ public class Main {
             RegexToNFA.nfaFinal.setStates(resultNFA.getStates().size());
             for(int i = 0; i<RegexToNFA.nfaFinal.getStates(); i++){
                 for (Character c : RegexToNFA.nfaFinal.getAlphabet()) {
-                    //99 default value porque no sabía como hacerlo en Java
                     RegexToNFA.nfaFinal.addToTransitionMap(i, c, 99);
                 }
             }

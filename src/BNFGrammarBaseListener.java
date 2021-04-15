@@ -1,4 +1,4 @@
-// Generated from /Users/manuelortiz/Mac Documents/Tec/8vo ZoomSemestre/Diseño de Compiladores/2do Parcial/Mid-Term/src/BNFGrammar.g4 by ANTLR 4.9.1
+// Generated from /Users/manuelortiz/Mac Documents/Tec/8vo ZoomSemestre/Diseño de Compiladores/2do Parcial/Examen Medio Termino/ExamenMedioTermino/src/BNFGrammar.g4 by ANTLR 4.9.1
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -94,6 +94,18 @@ public class BNFGrammarBaseListener implements BNFGrammarListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPlus(BNFGrammarParser.PlusContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLambda(BNFGrammarParser.LambdaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLambda(BNFGrammarParser.LambdaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
