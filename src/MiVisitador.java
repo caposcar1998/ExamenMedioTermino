@@ -1,9 +1,9 @@
 import java.util.*;
 
-
 public class MiVisitador extends BNFGrammarBaseVisitor<Node>{
 
     private ArrayList<String> leftUnion = new ArrayList<>();
+    private Stack<String> operatorsOfGroups = new Stack<>();
     private Stack<String> splitedLeftSide = new Stack<>();
     private ArrayList<String> insideGroup = new ArrayList<>();
     private Stack<String> splitedGroup = new Stack<>();
@@ -16,6 +16,7 @@ public class MiVisitador extends BNFGrammarBaseVisitor<Node>{
     private void checkWhenUnion(){
         if(!this.splitedLeftSide.isEmpty() && this.leftUnionResolved){
             this.splitedLeftSide.pop();
+
         }
         if(this.splitedLeftSide.isEmpty() && this.leftUnionResolved){
             RegexToNFA.op.addOperator("Union");
@@ -26,22 +27,29 @@ public class MiVisitador extends BNFGrammarBaseVisitor<Node>{
     private void checkWhenGroup(){
         if(!this.splitedGroup.isEmpty() && !this.groupResolved){
             this.splitedGroup.pop();
+
         }
         if(this.splitedGroup.isEmpty() && !this.groupResolved){
+            this.isGroup = false;
             this.groupResolved = true;
         }
     }
 
     @Override public Node visitStar(BNFGrammarParser.StarContext ctx) {
-        System.out.println("Visito Estrellita");
         RegexToNFA.regexVisitor.push(ctx.getChild(0).getText().charAt(0));
         RegexToNFA.regexVisitor.push(ctx.getChild(1).getText().charAt(0));
         char c = ctx.getChild(0).getText().charAt(0);
-        RegexToNFA.op.addNodeNFA(new NodeNFA(c));
-        RegexToNFA.nfaFinal.addToTable(RegexToNFA.nfaFinal.getStates()+1, c);
-        RegexToNFA.flagToStopVisiting = true;
-        RegexToNFA.op.addNodeNFA(RegexToNFA.thompson.star(RegexToNFA.op.getActualNFA().pop()));
-        checkWhenUnion();
+        if(c == '('){
+            operatorsOfGroups.push("Star");
+        }else{
+            RegexToNFA.op.addNodeNFA(new NodeNFA(c));
+            RegexToNFA.nfaFinal.addToTable(RegexToNFA.nfaFinal.getStates()+1, c);
+            RegexToNFA.flagToStopVisiting = true;
+            RegexToNFA.op.addNodeNFA(RegexToNFA.thompson.star(RegexToNFA.op.getActualNFA().pop()));
+            checkWhenUnion();
+        }
+
+
         return visit(ctx.elementaryRE());
     }
 
@@ -49,11 +57,16 @@ public class MiVisitador extends BNFGrammarBaseVisitor<Node>{
         RegexToNFA.regexVisitor.push(ctx.getChild(0).getText().charAt(0));
         RegexToNFA.regexVisitor.push(ctx.getChild(1).getText().charAt(0));
         char c = ctx.getChild(0).getText().charAt(0);
-        RegexToNFA.op.addNodeNFA(new NodeNFA(c));
-        RegexToNFA.nfaFinal.addToTable(RegexToNFA.nfaFinal.getStates()+1, c);
-        RegexToNFA.flagToStopVisiting = true;
-        RegexToNFA.op.addNodeNFA(RegexToNFA.thompson.plus(RegexToNFA.op.getActualNFA().pop(), c));
-        checkWhenUnion();
+        if(c == '('){
+            operatorsOfGroups.push("Plus");
+        }else{
+            RegexToNFA.op.addNodeNFA(new NodeNFA(c));
+            RegexToNFA.nfaFinal.addToTable(RegexToNFA.nfaFinal.getStates()+1, c);
+            RegexToNFA.flagToStopVisiting = true;
+            RegexToNFA.op.addNodeNFA(RegexToNFA.thompson.plus(RegexToNFA.op.getActualNFA().pop(), c));
+            checkWhenUnion();
+        }
+
         return visit(ctx.elementaryRE());
     }
 
@@ -69,7 +82,6 @@ public class MiVisitador extends BNFGrammarBaseVisitor<Node>{
     }
 
     @Override public Node visitGroup(BNFGrammarParser.GroupContext ctx) {
-        System.out.println("Visito Grupo");
         RegexToNFA.op.addOperator("StartGroup");
         this.insideGroup.add(ctx.getChild(1).getText());
         String[] g = this.insideGroup.get(0).split("");
@@ -88,26 +100,32 @@ public class MiVisitador extends BNFGrammarBaseVisitor<Node>{
     }
 
     @Override public Node visitElementaryRE(BNFGrammarParser.ElementaryREContext ctx) {
-        System.out.println("Visito Simple Letra");
         Character c;
         if (RegexToNFA.flagToStopVisiting){
             RegexToNFA.flagToStopVisiting = false;
         }else{
             c = ctx.getChild(0).getText().charAt(0);
-            if(isGroup){
-                checkWhenGroup();
-                if(groupResolved){
-                    RegexToNFA.thompson.popGroups(RegexToNFA.op, RegexToNFA.initialNode, RegexToNFA.finalNode);
-                }
-            }
             if(c!= '[' && c!= '('){
                 RegexToNFA.regexVisitor.push(ctx.getChild(0).getText().charAt(0));
-                System.out.println("Por agregar :" + c);
                 RegexToNFA.op.addNodeNFA(new NodeNFA(c));
                 RegexToNFA.nfaFinal.addToTable(RegexToNFA.nfaFinal.getStates()+1, c);
                 checkWhenUnion();
             }
 
+            if(isGroup){
+                checkWhenGroup();
+                if(groupResolved){
+                    RegexToNFA.thompson.popGroups(RegexToNFA.op, RegexToNFA.initialNode, RegexToNFA.finalNode);
+                    if(!this.operatorsOfGroups.isEmpty()){
+                        String groupOperator = this.operatorsOfGroups.pop();
+                        if(groupOperator.equals("Star")){
+                            RegexToNFA.op.addNodeNFA(RegexToNFA.thompson.star(RegexToNFA.op.getActualNFA().pop()));
+                        }else if(groupOperator.equals("Plus")){
+                            RegexToNFA.op.addNodeNFA(RegexToNFA.thompson.star(RegexToNFA.op.getActualNFA().pop()));
+                        }
+                    }
+                }
+            }
         }
 
         return visitChildren(ctx);

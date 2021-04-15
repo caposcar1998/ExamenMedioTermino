@@ -1,4 +1,3 @@
-import java.beans.Transient;
 import java.util.*;
 
 public class NodeNFA {
@@ -67,7 +66,6 @@ public class NodeNFA {
                     ", "+ p.nextState +")");
         }
     }
-
 
     public static class Paths{
         private int initialState;

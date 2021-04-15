@@ -4,7 +4,7 @@ import org.antlr.v4.runtime.tree.*;
 public class Main {
     public static void main(String [] args){
         try {
-            CharStream input = CharStreams.fromString("(ab)*");
+            CharStream input = CharStreams.fromStream(System.in);
             BNFGrammarLexer lexer = new BNFGrammarLexer(input);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             BNFGrammarParser parser = new BNFGrammarParser(tokens);

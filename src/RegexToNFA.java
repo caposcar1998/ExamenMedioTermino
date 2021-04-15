@@ -8,7 +8,6 @@ public class RegexToNFA {
     public static RegexToNFA thompson = new RegexToNFA();
     public static Stack<Character> regexVisitor = new Stack<>();
     public static boolean flagToStopVisiting = false;
-    public static int groupsCounter = 0;
 
     public NodeNFA concat(NodeNFA iNode, NodeNFA fNode){
         fNode.adjustInitialState();
@@ -20,9 +19,7 @@ public class RegexToNFA {
         }
 
         for (Integer state: fNode.getStates()){  iNode.setState(state + iNode.getStates().size() + 1); }
-
         iNode.setFinalState(iNode.getStates().size(), fNode.getStates().size() - 2);
-
         return iNode;
     }
 
