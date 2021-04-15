@@ -26,7 +26,6 @@ public class RegexToNFA {
     }
 
 
-
     public NodeNFA union(NodeNFA iNode, NodeNFA fNode){
         int sizeFromUnion = iNode.getStates().size() + fNode.getStates().size() + 2;
         NodeNFA unionNFA = new NodeNFA(sizeFromUnion);
@@ -73,6 +72,27 @@ public class RegexToNFA {
         starNFA.addPath(0, iNode.getStates().size() + 1, 'ñ');
         starNFA.setFinalState(iNode.getStates().size(), 1);
         return starNFA;
+    }
+
+    public NodeNFA plus(NodeNFA iNode, Character initial){
+        NodeNFA plusNFA = new NodeNFA(iNode.getStates().size() + 2);
+        Character emptyTransition = 'ñ';
+        plusNFA.addPath(0,1, initial);
+        plusNFA.addPath(1,2,emptyTransition);
+
+        for(NodeNFA.Paths p: iNode.getPaths()){
+            int initialPath = p.getInitialState() + 2;
+            int nextPath = p.getNextState() + 2;
+            plusNFA.addPath(initialPath, nextPath, p.getTransitionWith());
+        }
+
+        plusNFA.addPath(iNode.getStates().size() + 1, iNode.getStates().size() , emptyTransition);
+
+        plusNFA.addPath(iNode.getStates().size()+ 1, iNode.getStates().size()+ 2, emptyTransition);
+
+        plusNFA.addPath(1, iNode.getStates().size() +2, emptyTransition);
+        plusNFA.setFinalState(iNode.getStates().size(), 2);
+        return plusNFA;
     }
 
     public NodeNFA attendOperators(StacksNFA op, NodeNFA initialNode, NodeNFA finalNode){

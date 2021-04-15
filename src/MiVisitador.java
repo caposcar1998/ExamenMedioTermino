@@ -10,22 +10,10 @@ import java.util.Stack;
 public class MiVisitador extends BNFGrammarBaseVisitor<Node>{
 
     private ArrayList<String> leftUnion = new ArrayList<>();
-    private ArrayList<String> rightUnion = new ArrayList<>();
-    private Stack<String> splitedRightSide = new Stack<>();
     private Stack<String> splitedLeftSide = new Stack<>();
     private boolean leftUnionResolved = false;
 
-    @Override public Node visitStar(BNFGrammarParser.StarContext ctx) {
-        System.out.println("Star");
-        RegexToNFA.regexVisitor.push(ctx.getChild(0).getText().charAt(0));
-        RegexToNFA.regexVisitor.push(ctx.getChild(1).getText().charAt(0));
-        char c = ctx.getChild(0).getText().charAt(0);
-        System.out.println("Se va a agregar el " + c);
-        RegexToNFA.op.addNodeNFA(new NodeNFA(c));
-        RegexToNFA.nfaFinal.addToTable(RegexToNFA.nfaFinal.getStates()+1, c);
-
-        RegexToNFA.flagToStopVisiting = true;
-        RegexToNFA.op.addNodeNFA(RegexToNFA.thompson.star(RegexToNFA.op.getActualNFA().pop()));
+    private void checkWhenUnion(){
         if(!this.splitedLeftSide.isEmpty() && this.leftUnionResolved){
             this.splitedLeftSide.pop();
         }
@@ -33,31 +21,43 @@ public class MiVisitador extends BNFGrammarBaseVisitor<Node>{
             RegexToNFA.op.addOperator("Union");
             this.leftUnionResolved = false;
         }
+    }
+
+    @Override public Node visitStar(BNFGrammarParser.StarContext ctx) {
+        RegexToNFA.regexVisitor.push(ctx.getChild(0).getText().charAt(0));
+        RegexToNFA.regexVisitor.push(ctx.getChild(1).getText().charAt(0));
+        char c = ctx.getChild(0).getText().charAt(0);
+        System.out.println("Se va a agregar el " + c);
+        RegexToNFA.op.addNodeNFA(new NodeNFA(c));
+        RegexToNFA.nfaFinal.addToTable(RegexToNFA.nfaFinal.getStates()+1, c);
+        RegexToNFA.flagToStopVisiting = true;
+        RegexToNFA.op.addNodeNFA(RegexToNFA.thompson.star(RegexToNFA.op.getActualNFA().pop()));
+        checkWhenUnion();
+
         return visit(ctx.elementaryRE());
     }
 
     @Override public Node visitPlus(BNFGrammarParser.PlusContext ctx) {
-        System.out.println("+");
-        System.out.println(ctx.getText());
+        RegexToNFA.regexVisitor.push(ctx.getChild(0).getText().charAt(0));
+        RegexToNFA.regexVisitor.push(ctx.getChild(1).getText().charAt(0));
+        char c = ctx.getChild(0).getText().charAt(0);
+        System.out.println("Se va a agregar el " + c);
+        RegexToNFA.op.addNodeNFA(new NodeNFA(c));
+        RegexToNFA.nfaFinal.addToTable(RegexToNFA.nfaFinal.getStates()+1, c);
+        RegexToNFA.flagToStopVisiting = true;
+        RegexToNFA.op.addNodeNFA(RegexToNFA.thompson.plus(RegexToNFA.op.getActualNFA().pop(), c));
+
+        checkWhenUnion();
         return visit(ctx.elementaryRE());
     }
 
     @Override public Node visitUnion(BNFGrammarParser.UnionContext ctx) {
-        this.rightUnion.add(ctx.getChild(2).getText());
         this.leftUnion.add(ctx.getChild(0).getText());
-
-        String[] l = this.rightUnion.get(0).split("");
-        String[] r = this.leftUnion.get(0).split("");
+        String[] l = this.leftUnion.get(0).split("");
 
         for (String cL: l){
             this.splitedLeftSide.add(cL);
-
         }
-
-        for (String cL: r){
-            this.splitedRightSide.add(cL);
-        }
-        System.out.println("Se ha encontrado una Union");
         this.leftUnionResolved = true;
         return visitChildren(ctx);
     }
@@ -86,13 +86,7 @@ public class MiVisitador extends BNFGrammarBaseVisitor<Node>{
             System.out.println("Se va a agregar el " + c);
             RegexToNFA.op.addNodeNFA(new NodeNFA(c));
             RegexToNFA.nfaFinal.addToTable(RegexToNFA.nfaFinal.getStates()+1, c);
-            if(!this.splitedLeftSide.isEmpty() && this.leftUnionResolved){
-                this.splitedLeftSide.pop();
-            }
-            if(this.splitedLeftSide.isEmpty() && this.leftUnionResolved){
-                RegexToNFA.op.addOperator("Union");
-                this.leftUnionResolved = false;
-            }
+            checkWhenUnion();
         }
 
         return visitChildren(ctx);
