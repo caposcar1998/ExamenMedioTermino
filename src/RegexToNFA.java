@@ -8,6 +8,7 @@ public class RegexToNFA {
     public static RegexToNFA thompson = new RegexToNFA();
     public static Stack<Character> regexVisitor = new Stack<>();
     public static boolean flagToStopVisiting = false;
+    public static int groupsCounter = 0;
 
     public NodeNFA concat(NodeNFA iNode, NodeNFA fNode){
         fNode.adjustInitialState();
@@ -95,33 +96,42 @@ public class RegexToNFA {
         return plusNFA;
     }
 
-    public NodeNFA attendOperators(StacksNFA op, NodeNFA initialNode, NodeNFA finalNode){
+    public void validateOperators(String operatorToAttend, StacksNFA op, NodeNFA initialNode, NodeNFA finalNode){
+        if(operatorToAttend.equals("Union")){
+            finalNode = op.getFirstAndRemoveActualNFA();
+            if(!op.getOperators().isEmpty() && op.operatorToFollow().equals("Concat")){
+                op.addConcatNode(op.getFirstAndRemoveActualNFA());
+                while(!op.getOperators().empty() && op.operatorToFollow().equals("Concat")){
+                    op.addConcatNode(op.getFirstAndRemoveActualNFA());
+                    op.getOperators().pop();
+                }
+                initialNode = concat(op.getFirstAndRemoveConcatNFA(), op.getFirstAndRemoveConcatNFA());
+                while (op.getConcatNFA().size() > 0){ initialNode =  concat(initialNode, op.getFirstAndRemoveConcatNFA()); }
+            }else{ initialNode = op.getFirstAndRemoveActualNFA(); }
+            op.addNodeNFA(union(initialNode, finalNode));
+        }else if (operatorToAttend.equals("Concat")){
+            finalNode = op.getFirstAndRemoveActualNFA();
+            initialNode = op.getFirstAndRemoveActualNFA();
+            NodeNFA nodeToConcat = concat(initialNode, finalNode);
+            op.addNodeNFA(nodeToConcat);
+        }
+    }
+
+    public NodeNFA popOperators(StacksNFA op, NodeNFA initialNode, NodeNFA finalNode){
         while(op.getOperators().size() > 0){
             String operatorToAttend = op.getOperators().pop();
-            //Vamos atendiendo por orden los operators
-            //Evaluamos las concatenaciones que se encontró en el regex aún cuando sea una operación distinta a concat
-            if(operatorToAttend.equals("Union")){
-                finalNode = op.getFirstAndRemoveActualNFA();
-                if(!op.getOperators().isEmpty() && op.operatorToFollow().equals("Concat")){
-                    op.addConcatNode(op.getFirstAndRemoveActualNFA());
-                    while(!op.getOperators().empty() && op.operatorToFollow().equals("Concat")){
-                        op.addConcatNode(op.getFirstAndRemoveActualNFA());
-                        op.getOperators().pop();
-                    }
-                    initialNode = concat(op.getFirstAndRemoveConcatNFA(), op.getFirstAndRemoveConcatNFA());
-                    while (op.getConcatNFA().size() > 0){ initialNode =  concat(initialNode, op.getFirstAndRemoveConcatNFA()); }
-                }else{ initialNode = op.getFirstAndRemoveActualNFA(); }
-                op.addNodeNFA(union(initialNode, finalNode));
-            }else if (operatorToAttend.equals("Concat")){
-                finalNode = op.getFirstAndRemoveActualNFA();
-                initialNode = op.getFirstAndRemoveActualNFA();
-                NodeNFA nodeToConcat = concat(initialNode, finalNode);
-                op.addNodeNFA(nodeToConcat);
-            }
-
+            validateOperators(operatorToAttend, op, initialNode, finalNode);
         }
 
         return op.getActualNFA().pop();
+    }
+
+    public void popGroups(StacksNFA op, NodeNFA initialNode, NodeNFA finalNode){
+        while(!op.operatorToFollow().equals("StartGroup") && !op.getOperators().empty() ){
+            String operatorToAttend = op.getOperators().pop();
+            validateOperators(operatorToAttend, op, initialNode, finalNode);
+        }
+        //return op.getActualNFA().pop();
     }
 
 
