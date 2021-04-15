@@ -24,6 +24,10 @@ public class NFA extends TablaTransicion{
         return states;
     }
 
+    public void adjustState(){
+        states.add(states.size() + 1);
+    }
+
     @Override
     public int getStates() {
         return s;

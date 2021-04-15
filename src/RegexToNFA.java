@@ -68,7 +68,7 @@ public class RegexToNFA {
     }
 
     public NodeNFA plus(NodeNFA iNode, Character initial){
-        NodeNFA plusNFA = new NodeNFA(iNode.getStates().size() + 2);
+        NodeNFA plusNFA = new NodeNFA(iNode.getStates().size() + 3);
         Character emptyTransition = 'ñ';
         plusNFA.addPath(0,1, initial);
         plusNFA.addPath(1,2,emptyTransition);
