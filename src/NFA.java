@@ -43,8 +43,6 @@ public class NFA extends TablaTransicion{
         return transitions;
     }
 
-
-
     @Override
     public List<Integer> getTransitionInRow(int key, Character header){
         return transitions.get(key).get(header);

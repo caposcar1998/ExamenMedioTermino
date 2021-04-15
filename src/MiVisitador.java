@@ -1,42 +1,51 @@
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class MiVisitador extends BNFGrammarBaseVisitor<Node>{
-    //NFAfinal guardará todos los resultados finales, es decir, es el NFA ya resuelto
-    public static NFA nfaFinal = new NFA();
-    //De la clase operators, tendremos:
-    // - operators: todas las operaciones a realizar que se irán colocando en una Pila
-    public static StacksNFA op = new StacksNFA();
-    //Por cada elemento que surge es importante tener en cuenta que puede surgir un nueva NFA al cual podemos concatenar
-    public static NodeNFA initialNode;
-    public static NodeNFA finalNode;
-    public static RegexToNFA thompson = new RegexToNFA();
-    public static Stack<Character> regexVisitor = new Stack<>();
-    boolean flagToStopVisiting = false;
 
-    //public static Map<String, Map<String, List<Integer> >> myBoard = new HashMap<String, Map<String, List<Integer> >>();
+    ArrayList<String> afterUnion = new ArrayList<>();
 
     @Override public Node visitStar(BNFGrammarParser.StarContext ctx) {
-        regexVisitor.push(ctx.getChild(0).getText().charAt(0));
-        regexVisitor.push(ctx.getChild(1).getText().charAt(0));
+        RegexToNFA.regexVisitor.push(ctx.getChild(0).getText().charAt(0));
+        RegexToNFA.regexVisitor.push(ctx.getChild(1).getText().charAt(0));
         char c = ctx.getChild(0).getText().charAt(0);
-        op.addNodeNFA(new NodeNFA(c));
-        nfaFinal.addToTable(MiVisitador.nfaFinal.getStates()+1, c);
-        flagToStopVisiting = true;
-        op.addNodeNFA(thompson.star(op.getActualNFA().pop()));
+        RegexToNFA.op.addNodeNFA(new NodeNFA(c));
+        RegexToNFA.nfaFinal.addToTable(RegexToNFA.nfaFinal.getStates()+1, c);
+        RegexToNFA.flagToStopVisiting = true;
+        RegexToNFA.op.addNodeNFA(RegexToNFA.thompson.star(RegexToNFA.op.getActualNFA().pop()));
         return visit(ctx.elementaryRE());
     }
 
     @Override public Node visitPlus(BNFGrammarParser.PlusContext ctx) {
-        System.out.println("suma");
+        System.out.println("+");
         System.out.println(ctx.getText());
         return visit(ctx.elementaryRE());
     }
 
     @Override public Node visitUnion(BNFGrammarParser.UnionContext ctx) {
-        System.out.println("Union");
-        System.out.println(ctx.getChild(0).getText());
-        System.out.println(ctx.getChild(1).getText());
-        System.out.println(ctx.getChild(2).getText());
+        RegexToNFA.op.addOperator("Union");
+        for (int i = 2; i < ctx.getChildCount(); i++){
+            afterUnion.add(ctx.getChild(i).getText());
+
+        }
+        System.out.println("After Union " + afterUnion);
+        /*
+        String afterUnionString = afterUnion.get(0);
+        CharStream input = CharStreams.fromString(afterUnionString);
+        BNFGrammarLexer lexer = new BNFGrammarLexer(input);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        BNFGrammarParser parser = new BNFGrammarParser(tokens);
+        ParseTree tree = parser.re();
+        System.out.println();
+        System.out.println(tree.toStringTree(parser));
+        MiVisitador eval = new MiVisitador();
+        Node n = eval.visit(tree);
+        */
         return visit(ctx.simpleRE());
     }
 
@@ -49,20 +58,19 @@ public class MiVisitador extends BNFGrammarBaseVisitor<Node>{
     }
 
     @Override public Node visitConcatenation(BNFGrammarParser.ConcatenationContext ctx) {
-        op.addOperator("Concat");
+        RegexToNFA.op.addOperator("Concat");
         return visitChildren(ctx);
     }
 
     @Override public Node visitElementaryRE(BNFGrammarParser.ElementaryREContext ctx) {
-
         char c;
-        if (flagToStopVisiting){
-            flagToStopVisiting = false;
+        if (RegexToNFA.flagToStopVisiting){
+            RegexToNFA.flagToStopVisiting = false;
         }else{
-            regexVisitor.push(ctx.getChild(0).getText().charAt(0));
+            RegexToNFA.regexVisitor.push(ctx.getChild(0).getText().charAt(0));
             c = ctx.getChild(0).getText().charAt(0);
-            op.addNodeNFA(new NodeNFA(c));
-            nfaFinal.addToTable(MiVisitador.nfaFinal.getStates()+1, c);
+            RegexToNFA.op.addNodeNFA(new NodeNFA(c));
+            RegexToNFA.nfaFinal.addToTable(RegexToNFA.nfaFinal.getStates()+1, c);
         }
 
         return visitChildren(ctx);

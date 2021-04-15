@@ -1,6 +1,13 @@
 import java.util.*;
 
 public class RegexToNFA {
+    public static NFA nfaFinal = new NFA();
+    public static StacksNFA op = new StacksNFA();
+    public static NodeNFA initialNode;
+    public static NodeNFA finalNode;
+    public static RegexToNFA thompson = new RegexToNFA();
+    public static Stack<Character> regexVisitor = new Stack<>();
+    public static boolean flagToStopVisiting = false;
 
     public NodeNFA concat(NodeNFA iNode, NodeNFA fNode){
         fNode.adjustInitialState();
