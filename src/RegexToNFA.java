@@ -31,7 +31,7 @@ public class RegexToNFA {
             starNFA.addPath(initialPath, nextPath, p.getTransitionWith());
         }
         //Conectamos el finalState de iNode hacia el nuevo final que se genera por un starNFA
-        starNFA.addPath(iNode.getPaths().size(), iNode.getStates().size() + 1, 'ñ');
+        starNFA.addPath(iNode.getStates().size(), iNode.getStates().size() + 1, 'ñ');
         //Se genera el 'loop' que genera la estrella, regresando al elemento anterior
         starNFA.addPath(iNode.getStates().size(), 1, 'ñ');
         //Se agrega transición vacía del primer estado al último estado
